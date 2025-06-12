@@ -1,492 +1,244 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adın Soyadın | Dijital Sanatçı & Geliştirici</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adın Soyadın | Dijital Sanatçı & Geliştirici</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.location.search.includes("success=1")) {
+        alert("✅ Mesajınız başarıyla gönderildi!");
+      }
+    });
+  </script>
 
-    <style>
-        /* TEMA ve DEĞİŞKENLER */
-        :root {
-            --primary-color: #fdb913;
-            --dark-bg: #0C0A14;
-            --light-bg: #1A1625;
-            --text-color: #bca9e4;
-            --white-color: #ffffff;
-            --border-color: rgba(253, 185, 19, 0.2);
-            --font-family: 'Inter', sans-serif;
-        }
+  <style>
+    /* Temel Değişkenler */
+    :root {
+      --primary-color: #fdb913;
+      --dark-bg: #0C0A14;
+      --light-bg: #1A1625;
+      --text-color: #bca9e4;
+      --white-color: #ffffff;
+      --border-color: rgba(253, 185, 19, 0.2);
+      --font-family: 'Inter', sans-serif;
+    }
 
-        /* TEMEL STİLLER ve SIFIRLAMA */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--dark-bg);
+      color: var(--text-color);
+      font-family: var(--font-family);
+      overflow-x: hidden;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--dark-bg); }
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary-color); border-radius: 10px;
+    }
 
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-color);
-            font-family: var(--font-family);
-            overflow-x: hidden;
-        }
+    .particles {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .particle {
+      position: absolute; bottom: -20px; background: var(--primary-color);
+      border-radius: 50%; opacity: 0;
+      animation: float 20s infinite linear;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 0.7; }
+      100% { transform: translateY(-105vh); opacity: 0; }
+    }
 
-        /* KAYDIRMA ÇUBUĞU */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--dark-bg); }
-        ::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #e6a800; }
+    .particle:nth-child(1) { left: 10%; width: 5px; height: 5px; animation-duration: 13s; }
+    .particle:nth-child(2) { left: 20%; width: 2px; height: 2px; animation-duration: 15s; animation-delay: 2s; }
+    .particle:nth-child(3) { left: 30%; width: 6px; height: 6px; animation-duration: 12s; animation-delay: 4s; }
+    .particle:nth-child(4) { left: 40%; width: 3px; height: 3px; animation-duration: 18s; animation-delay: 1s; }
+    .particle:nth-child(5) { left: 50%; width: 4px; height: 4px; animation-duration: 16s; animation-delay: 5s; }
+    .particle:nth-child(6) { left: 60%; width: 2px; height: 2px; animation-duration: 19s; animation-delay: 3s; }
+    .particle:nth-child(7) { left: 70%; width: 5px; height: 5px; animation-duration: 14s; animation-delay: 6s; }
+    .particle:nth-child(8) { left: 80%; width: 3px; height: 3px; animation-duration: 20s; animation-delay: 8s; }
+    .particle:nth-child(9) { left: 90%; width: 2px; height: 2px; animation-duration: 17s; animation-delay: 7s; }
 
-        /* ARKA PLAN PARÇACIKLARI */
-        .particles {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
 
-        .particle {
-            position: absolute;
-            bottom: -20px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            opacity: 0;
-            animation: float 20s infinite linear;
-        }
-        @keyframes float {
-            0% { transform: translateY(0) translateX(0); opacity: 0.7; }
-            100% { transform: translateY(-105vh) translateX(5vw); opacity: 0; }
-        }
-        /* Farklı boyut ve sürelerde parçacıklar */
-        .particle:nth-child(1) { left: 10%; width: 5px; height: 5px; animation-duration: 13s; animation-delay: 0s; }
-        .particle:nth-child(2) { left: 20%; width: 2px; height: 2px; animation-duration: 15s; animation-delay: 2s; }
-        .particle:nth-child(3) { left: 30%; width: 6px; height: 6px; animation-duration: 12s; animation-delay: 4s; }
-        .particle:nth-child(4) { left: 40%; width: 3px; height: 3px; animation-duration: 18s; animation-delay: 1s; }
-        .particle:nth-child(5) { left: 50%; width: 4px; height: 4px; animation-duration: 16s; animation-delay: 5s; }
-        .particle:nth-child(6) { left: 60%; width: 2px; height: 2px; animation-duration: 19s; animation-delay: 3s; }
-        .particle:nth-child(7) { left: 70%; width: 5px; height: 5px; animation-duration: 14s; animation-delay: 6s; }
-        .particle:nth-child(8) { left: 80%; width: 3px; height: 3px; animation-duration: 20s; animation-delay: 8s; }
-        .particle:nth-child(9) { left: 90%; width: 2px; height: 2px; animation-duration: 17s; animation-delay: 7s; }
+    section { padding: 120px 0; }
 
-        /* GENEL TASARIM */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 2;
-        }
+    .section-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--white-color);
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .section-title span { color: var(--primary-color); }
 
-        section {
-            padding: 120px 0;
-        }
+    header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      padding: 1.5rem 5%; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    header.scrolled {
+      background-color: rgba(12, 10, 20, 0.8); backdrop-filter: blur(10px);
+    }
 
-        .section-title {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--white-color);
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        .section-title span {
-            color: var(--primary-color);
-        }
+    .logo { font-weight: 900; font-size: 1.8rem; color: var(--white-color); text-decoration: none; }
+    .logo span { color: var(--primary-color); }
 
-        /* HEADER */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background-color 0.3s ease;
-        }
-        header.scrolled {
-            background-color: rgba(12, 10, 20, 0.8);
-            backdrop-filter: blur(10px);
-        }
-        .logo {
-            font-weight: 900;
-            font-size: 1.8rem;
-            color: var(--white-color);
-            text-decoration: none;
-        }
-        .logo span { color: var(--primary-color); }
-        
-        .nav-links a, .header-button {
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            margin-left: 1rem;
-        }
-        .nav-links a:hover, .header-button:hover {
-            background: var(--primary-color);
-            color: var(--dark-bg);
-            box-shadow: 0 0 20px rgba(253, 185, 19, 0.5);
-        }
+    .nav-links a, .header-button {
+      background: transparent; border: 2px solid var(--primary-color);
+      color: var(--primary-color); padding: 0.6rem 1.5rem;
+      border-radius: 50px; text-decoration: none; font-weight: 700;
+      transition: all 0.3s ease; margin-left: 1rem;
+    }
+    .nav-links a:hover, .header-button:hover {
+      background: var(--primary-color); color: var(--dark-bg);
+      box-shadow: 0 0 20px rgba(253, 185, 19, 0.5);
+    }
 
-        /* HERO BÖLÜMÜ */
-        #hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            overflow: hidden;
-        }
-        .hero-content {
-            opacity: 0;
-            animation: fadeIn 1.5s 0.5s forwards;
-        }
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-        .hero-content h1 {
-            font-size: clamp(3rem, 10vw, 6rem);
-            font-weight: 900;
-            line-height: 1.1;
-            color: var(--white-color);
-            margin-bottom: 1rem;
-        }
-        .hero-content p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 2rem auto;
-            line-height: 1.7;
-        }
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      justify-content: center; text-align: center;
+    }
 
-        /* PROJELER BÖLÜMÜ - 3D KARTLAR */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            justify-content: center;
-            perspective: 2000px;
-        }
-        .project-card {
-            background: linear-gradient(135deg, #1e1b2c, #1A1625);
-            border-radius: 15px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-            transform-style: preserve-3d;
-            transition: transform 0.6s ease;
-            position: relative;
-            padding: 2rem;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-        .project-card.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .project-card:hover {
-            transform: rotateY(10deg) rotateX(5deg) scale(1.05);
-        }
-        .card-content {
-            transform: translateZ(30px); /* 3D derinlik */
-        }
-        .card-shine {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, 0.05) 50%, transparent 60%);
-            background-size: 200% 100%;
-            animation: shine 5s infinite linear;
-            border-radius: 15px;
-            pointer-events: none;
-        }
-        @keyframes shine {
-            from { background-position: 200% 0; }
-            to { background-position: -200% 0; }
-        }
-        .project-card .project-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        .project-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--white-color);
-            margin-bottom: 0.5rem;
-        }
-        .project-card p {
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-        
-        /* İLETİŞİM FORMU */
-        #contact-form {
-            max-width: 700px;
-            margin: 0 auto;
-            display: grid;
-            gap: 20px;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-        #contact-form.is-visible {
-             opacity: 1;
-             transform: translateY(0);
-             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        #contact-form input, #contact-form textarea {
-            width: 100%;
-            padding: 1rem;
-            background: var(--light-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--white-color);
-            font-size: 1rem;
-            font-family: var(--font-family);
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        #contact-form input:focus, #contact-form textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 10px rgba(253, 185, 19, 0.3);
-        }
-        .submit-btn {
-            background: var(--primary-color);
-            color: var(--dark-bg);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(253, 185, 19, 0.4);
-            border: none;
-            cursor: pointer;
-            justify-self: start;
-        }
-        .submit-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(253, 185, 19, 0.7);
-        }
-        #form-status {
-            margin-top: 1rem;
-            font-weight: 700;
-            text-align: left;
-        }
+    .hero-content h1 {
+      font-size: clamp(3rem, 10vw, 6rem); font-weight: 900;
+      line-height: 1.1; color: var(--white-color); margin-bottom: 1rem;
+    }
+    .hero-content p {
+      font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem auto;
+      line-height: 1.7;
+    }
+    .submit-btn {
+      background: var(--primary-color); color: var(--dark-bg);
+      padding: 1rem 2rem; border-radius: 50px;
+      font-size: 1rem; font-weight: 700; border: none; cursor: pointer;
+      transition: all 0.3s ease; box-shadow: 0 0 20px rgba(253, 185, 19, 0.4);
+    }
+    .submit-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(253, 185, 19, 0.7);
+    }
 
-        /* FOOTER */
-        footer {
-            background: var(--light-bg);
-            padding: 3rem 0;
-            text-align: center;
-            margin-top: 80px;
-        }
-        .social-links a {
-            color: var(--text-color);
-            font-size: 1.5rem;
-            margin: 0 15px;
-            transition: color 0.3s, transform 0.3s;
-        }
-        .social-links a:hover {
-            color: var(--primary-color);
-            transform: translateY(-5px);
-        }
-        footer p {
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-        }
-        
-        /* SCROLL ANIMATION CLASS */
-        [data-anim] {
-            opacity: 0;
-            transform: translateY(50px);
-        }
-        [data-anim].is-visible {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
+    .portfolio-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+    }
+    .project-card {
+      background: linear-gradient(135deg, #1e1b2c, #1A1625);
+      border-radius: 15px; border: 1px solid var(--border-color);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+      padding: 2rem;
+    }
+    .project-card h3 {
+      font-size: 1.5rem; color: var(--white-color);
+      margin-bottom: 0.5rem;
+    }
+    .project-icon {
+      font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;
+    }
 
-    </style>
+    #contact-form {
+      max-width: 700px; margin: 0 auto; display: grid; gap: 20px;
+    }
+    #contact-form input, #contact-form textarea {
+      width: 100%; padding: 1rem;
+      background: var(--light-bg); border: 1px solid var(--border-color);
+      border-radius: 8px; color: var(--white-color);
+      font-size: 1rem; font-family: var(--font-family);
+    }
+
+    footer {
+      background: var(--light-bg); padding: 3rem 0; text-align: center;
+      margin-top: 80px;
+    }
+    .social-links a {
+      color: var(--text-color); font-size: 1.5rem;
+      margin: 0 15px; transition: color 0.3s, transform 0.3s;
+    }
+    .social-links a:hover {
+      color: var(--primary-color); transform: translateY(-5px);
+    }
+    footer p {
+      margin-top: 1.5rem; font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-    
-    <div class="particles">
-        <div class="particle"></div> <div class="particle"></div> <div class="particle"></div>
-        <div class="particle"></div> <div class="particle"></div> <div class="particle"></div>
-        <div class="particle"></div> <div class="particle"></div> <div class="particle"></div>
+
+  <div class="particles">
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  </div>
+
+  <header id="main-header">
+    <a href="#" class="logo">AS<span>.</span></a>
+    <nav class="nav-links">
+      <a href="#portfolio">Projeler</a>
+      <a href="#contact" class="header-button">İletişime Geç</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section id="hero">
+      <div class="hero-content">
+        <h1>ADIN SOYADIN</h1>
+        <p>Kullanıcı odaklı dijital deneyimler yaratan, estetik ve teknolojiyi birleştiren bir kreatif geliştiriciyim.</p>
+        <a href="#portfolio" class="submit-btn">Çalışmalarımı Gör</a>
+      </div>
+    </section>
+
+    <section id="portfolio">
+      <h2 class="section-title">Öne Çıkan <span>Projeler</span></h2>
+      <div class="portfolio-grid">
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-shopping-cart"></i></div>
+          <h3>Modern E-Ticaret Platformu</h3>
+          <p>Gelişmiş animasyonlarla desteklenmiş, kullanıcı dostu e-ticaret sitesi.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-building-columns"></i></div>
+          <h3>Kurumsal Finans Sitesi</h3>
+          <p>Profesyonel veri görselleştirmeleri ile desteklenen kurumsal platform.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Bir Fikrin mi Var? <span>Yaz Bana.</span></h2>
+      <form id="contact-form" action="https://formspree.io/f/xovwdder" method="POST">
+        <input type="text" name="name" placeholder="Adınız Soyadınız" required />
+        <input type="email" name="email" placeholder="E-posta Adresiniz" required />
+        <textarea name="message" rows="6" placeholder="Mesajınız..." required></textarea>
+        <button type="submit" class="submit-btn">Gönder</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
     </div>
+    <p>&copy; 2025 Adın Soyadın. Tüm hakları saklıdır.</p>
+  </footer>
 
-    <header id="main-header">
-        <a href="#" class="logo">AS<span>.</span></a>
-        <nav class="nav-links">
-            <a href="#portfolio">Projeler</a>
-            <a href="#contact" class="header-button">İletişime Geç</a>
-        </nav>
-    </header>
-
-    <main>
-        <div class="container">
-            <section id="hero">
-                <div class="hero-content">
-                    <h1>ADIN SOYADIN</h1>
-                    <p>
-                        Kullanıcı odaklı dijital deneyimler yaratan, estetik ve teknolojiyi birleştiren bir kreatif geliştiriciyim. Fikirlerinizi, unutulmaz ve etkileşimli dijital projelere dönüştürelim.
-                    </p>
-                    <a href="#portfolio" class="submit-btn">Çalışmalarımı Gör</a>
-                </div>
-            </section>
-
-            <section id="portfolio">
-                <h2 class="section-title" data-anim>Öne Çıkan <span>Projeler</span></h2>
-                <div class="portfolio-grid">
-                    <div class="project-card" data-anim>
-                        <div class="card-shine"></div>
-                        <div class="card-content">
-                            <div class="project-icon"><i class="fas fa-shopping-cart"></i></div>
-                            <h3>Modern E-Ticaret Platformu</h3>
-                            <p>Kullanıcı deneyimini ön planda tutan, hızlı ve güvenli, animasyonlarla zenginleştirilmiş bir alışveriş sitesi.</p>
-                        </div>
-                    </div>
-                    <div class="project-card" data-anim>
-                        <div class="card-shine"></div>
-                        <div class="card-content">
-                            <div class="project-icon"><i class="fas fa-building-columns"></i></div>
-                            <h3>Kurumsal Finans Sitesi</h3>
-                            <p>Güven veren, profesyonel ve modern bir tasarıma sahip, veri görselleştirmeleri içeren kurumsal web portalı.</p>
-                        </div>
-                    </div>
-                    <div class="project-card" data-anim>
-                        <div class="card-shine"></div>
-                        <div class="card-content">
-                             <div class="project-icon"><i class="fas fa-mobile-alt"></i></div>
-                            <h3>Sağlık ve Fitness Uygulaması</h3>
-                            <p>Kullanıcıların hedeflerini takip edebildiği, motive edici ve kolay kullanımlı bir arayüze sahip mobil uygulama.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="contact">
-                <h2 class="section-title" data-anim>Bir Fikrin mi Var? <span>Yaz Bana.</span></h2>
-                <form id="contact-form" data-anim>
-                    <input type="text" name="name" placeholder="Adınız Soyadınız" required>
-                    <input type="email" name="email" placeholder="E-posta Adresiniz" required>
-                    <textarea name="message" rows="6" placeholder="Projenizden veya fikrinizden bahsedin..." required></textarea>
-                    <button type="submit" class="submit-btn">Gönder</button>
-                    <div id="form-status"></div>
-                </form>
-            </section>
-        </div>
-    </main>
-    
-    <footer>
-        <div class="container">
-            <div class="social-links">
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
-            </div>
-            <p>&copy; 2025 Adın Soyadın. Tüm hakları saklıdır.</p>
-        </div>
-    </footer>
-
-    <script>
-        // --- 1. SCROLL ANIMASYONLARI ---
-        const animatedElements = document.querySelectorAll('[data-anim]');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-        animatedElements.forEach(el => observer.observe(el));
-        
-        // --- 2. HEADER'IN SCROLL'DA ARKA PLAN DEĞİŞTİRMESİ ---
-        const header = document.getElementById('main-header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // --- 3. İLETİŞİM FORMU GÖNDERME İŞLEMİ (WEB3FORMS İLE) ---
-        const form = document.getElementById('contact-form');
-        const status = document.getElementById('form-status');
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // !!! BURAYA KENDİ WEB3FORMS ACCESS KEY'İNİ GİR !!!
-            const access_key = '0bd2442d-06e8-4c5c-9e86-0595c06cf268';
-            
-            if (access_key === '') {
-                status.style.color = 'var(--primary-color)';
-                status.innerHTML = 'Lütfen JavaScript kodundan Access Key\'i ayarlayın!';
-                return;
-            }
-
-            const formData = new FormData(form);
-            const object = Object.fromEntries(formData);
-            const json = JSON.stringify(object);
-
-            status.style.color = 'var(--text-color)';
-            status.innerHTML = "Gönderiliyor...";
-
-            fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: json
-                })
-                .then(async (response) => {
-                    let jsonResponse = await response.json();
-                    if (response.status == 200) {
-                        status.style.color = 'lightgreen';
-                        status.innerHTML = "Mesajınız başarıyla gönderildi!";
-                    } else {
-                        console.log(response);
-                        status.style.color = 'red';
-                        status.innerHTML = jsonResponse.message;
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                    status.style.color = 'red';
-                    status.innerHTML = "Bir hata oluştu, mesaj gönderilemedi.";
-                })
-                .then(function() {
-                    form.reset();
-                    setTimeout(() => {
-                        status.innerHTML = "";
-                    }, 5000);
-                });
-        });
-
-    </script>
 </body>
 </html>
