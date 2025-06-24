@@ -45,7 +45,7 @@
       padding: 1.5rem 5%;
       z-index: 100;
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: wrap; /* Esnekliği korumak için wrap kalabilir */
       justify-content: space-between;
       align-items: center;
       background-color: var(--dark-bg);
@@ -64,7 +64,6 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-      flex-wrap: wrap;
     }
 
     .nav-links a, .header-button {
@@ -76,6 +75,7 @@
       text-decoration: none;
       font-weight: 700;
       transition: all 0.3s ease;
+      white-space: nowrap; /* Buton metinlerinin kırılmasını engeller */
     }
 
     .nav-links a:hover, .header-button:hover {
@@ -207,26 +207,39 @@
       font-size: 0.9rem;
     }
 
-    /* Responsive */
-@media (max-width: 768px) {
-  .nav-links {
-    flex-direction: column;
-    align-items: flex-end;
-    width: 100%;
-    margin-top: 1rem;
-    gap: 0.5rem;
-  }
+    /* ==== YANLIŞLIĞA SEBEP OLAN RESPONSIVE KODUN DÜZELTİLMİŞ HALİ ==== */
+    @media (max-width: 768px) {
+      /* Header'daki iç boşluğu azaltarak elemanlara yer açıyoruz */
+      header {
+          padding: 1.5rem 2.5%; 
+      }
 
-  .nav-links a, .header-button {
-    width: auto;
-    font-size: 0.9rem;
-    padding: 0.4rem 1rem;
-  }
+      /* .nav-links'i dikey yapan ve %100 genişlik veren kuralları kaldırıyoruz. */
+      /* Artık butonlar yan yana kalacak. */
+      .nav-links {
+          gap: 0.8rem; /* Butonlar arası boşluğu ayarlıyoruz */
+      }
 
-  .header-button {
-    margin-left: 0;
-  }
-}
+      /* Mobil için buton boyutlarını küçültmek iyi bir fikir, bu kurallar kalabilir. */
+      .nav-links a, .header-button {
+          font-size: 0.8rem; /* Yazı tipini biraz daha küçülttük */
+          padding: 0.5rem 1rem; /* İç boşluğu ayarladık */
+      }
+    }
+
+    /* Çok dar ekranlar için ek bir düzenleme */
+    @media (max-width: 380px) {
+      .logo {
+        font-size: 1.5rem; /* Logoyu biraz küçültelim */
+      }
+      .nav-links a, .header-button {
+          font-size: 0.7rem;
+          padding: 0.4rem 0.8rem;
+      }
+      .nav-links {
+          gap: 0.5rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -327,4 +340,3 @@
   </script>
 </body>
 </html>
-
