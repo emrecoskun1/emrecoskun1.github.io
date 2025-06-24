@@ -208,24 +208,25 @@
     }
 
     /* Responsive */
-    @media (max-width: 768px) {
-      .nav-links {
-        flex-direction: column;
-        align-items: flex-end;
-        width: 100%;
-        margin-top: 1rem;
-      }
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    margin-top: 1rem;
+    gap: 0.5rem;
+  }
 
-      .header-button {
-        width: 100%;
-        text-align: center;
-        font-size: 0.9rem;
-      }
+  .nav-links a, .header-button {
+    width: auto;
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+  }
 
-      .submit-btn {
-        width: 100%;
-      }
-    }
+  .header-button {
+    margin-left: 0;
+  }
+}
   </style>
 </head>
 <body>
